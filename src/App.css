@@ -1,4 +1,12 @@
-.container{
+
+ .editImg{
+  width: 32px;
+}
+.img{
+  width: 32px;
+}
+
+ .container {
   margin: auto;
   padding: 20px;
   display: flex;
@@ -9,18 +17,25 @@
   border-radius: 5px;
   background-color: #bab4b4;
 }
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
 input {
-  width: 80%;
+  flex: 1;
   height: 18px;
   padding: 10px;
   margin-right: 5px;
-  padding: 10px;
   border: 1px;
   border-radius: 2px;
   border-color: #d8d8d8;
   border-style: solid;
   outline: none;
 }
+
 .addBut {
   color: #0d0000;
   background-color: #f2f2f2;
@@ -30,50 +45,52 @@ input {
   border-radius: 16px;
 }
 
-.artic{
-  width: 80%;
-  margin-left: 2px;
-  background-color: #d8d8d8;
-  margin-top: 6px;
-  padding-left: 8px;
-}
-.delete{
-  height: 40px;
-  width: 40px;
-  display:table-row; 
-  background-color: #e8e8e8;
-  border: none;
-  border-radius: 0 2px 2px 0;
-  /* margin-left: 18px; */
-  margin-top: 6px;
-  margin-right: 13px;
+.addBut:hover {
+  background-color: rgba(88, 97, 104, 0.908);
 }
 
-.delete:hover{
-  background-color: red;
-}
 .block {
   width: 100%;
   height: auto;
 }
-.title{
+
+.articleContainer {
   display: flex;
-  margin-right: -11px;
+  align-items: center;
 }
-.img{
-  width: 32px;
+
+.artic {
+  padding: 4px;
+  flex: 1 1;
+  background-color: #d8d8d8;
+  padding-left: 8px;
+  margin-right: 2px;
 }
-.addBut:hover {
-  background-color: rgba(88, 97, 104, 0.908)
+
+.buttonContainer {
+  display: flex;
 }
-.editImg{
-  width: 32px;
+
+.delete {
+  height: 40px;
+  width: 40px;
+  background-color: #e8e8e8;
+  border: none;
+  border-radius: 0 2px 2px 0;
 }
-.edit{
-  margin-top: 6px;
-    height: 40px;
-    width: 40px;
-    margin-right: 6px;
-    border:none;
-    border-radius:2px;
+
+.delete:hover {
+  background-color: red;
+}
+
+.buttonCompl {
+  margin-top: 10px;
+}
+
+.buttonCompl button {
+  margin-right: 5px;
+}
+
+.buttonCompl button:last-child {
+  margin-right: 0;
 }

@@ -6,70 +6,109 @@ import DeleteButton from './DeleteButton';
 import { Article } from './Article';
 import Edit from './EditText';
 
-
 function App() {
-  const [inputValue,setInputValue]=useState('')
+  const [inputValue, setInputValue] = useState('');
   const [articles, setArticles] = useState([]);
-
+  const [filter, setFilter] = useState('all');
 
   const handleAddData = () => {
-    if(inputValue === ''){
-      return false
+    if (inputValue === '') {
+      return false;
     }
     setArticles((prevState) => {
       return [
         {
-          isCompleted:true,
+          isCompleted: true,
           id: Math.floor(Math.random() * 100),
           title: inputValue,
         },
         ...prevState,
       ];
     });
-    setInputValue('')
+    setInputValue('');
   };
+
   const handleDeleteData = (id) => {
     const removeItem = articles.filter((todo) => {
       return todo.id !== id;
     });
-    setArticles(removeItem);   
+    setArticles(removeItem);
   };
 
-  function editItem(id){
+  function editItem(id) {
     const editTask = articles.find((i) => i.id === id);
     setInputValue(editTask.title);
-    console.log(articles);
+    const updatedArticles = articles.filter((article) => article.id !== id);
+    setArticles(updatedArticles);
+    return editTask.title;
   }
 
-  
-  // function handleChange(event) {
-  //   setInputValue((prevInputValue) => ({
-  //     ...prevInputValue,
-  //   }));
-  // }
-  console.log(articles);
+  function toggleComplete(id) {
+    setArticles((prevArticles) =>
+      prevArticles.map((article) => {
+        if (article.id === id) {
+          return { ...article, completed: !article.completed };
+        }
+        return article;
+      })
+    );
+  }
 
+  function handleFilterChange(value) {
+    setFilter(value);
+  }
+
+  let filteredArticles = articles;
+
+  if (filter === 'completed') {
+    filteredArticles = articles.filter((article) => article.completed);
+  } else if (filter === 'incomplete') {
+    filteredArticles = articles.filter((article) => !article.completed);
+  }
+
+  console.log(articles);
 
   return (
     <div className='container'>
       <div className='block'>
-        <Input onChange={setInputValue} value={inputValue}/>
-        <AddButton onClick={handleAddData} />
-         {articles.map((article) =>(
-        <div className='title'>
-            <Article item={article} />
-            <Edit  onClick={()=>  editItem(article.id)}/>
-            <DeleteButton onClick={() =>{
-              handleDeleteData(article.id)
-            }
-          }
-             />
-         </div> 
-      ))}      
+        <div className='inputContainer'>
+          <Input onChange={setInputValue} value={inputValue} />
+          <AddButton onClick={handleAddData} />
+        </div>
+
+        <ul>
+          {filteredArticles.map((article) => (
+            <li
+              key={article.id}
+              style={{ textDecoration: article.completed ? 'line-through' : 'none' }}
+            >
+              <div className='articleContainer'>
+                <div className='artic'>
+                  <Article item={article} />
+                </div>
+                <div className='buttonContainer'>
+                  <Edit onClick={() => editItem(article.id)} />
+                  <DeleteButton
+                    onClick={() => {
+                      handleDeleteData(article.id);
+                    }}
+                  />
+                </div>
+              </div>
+              <button onClick={() => toggleComplete(article.id)}>
+                {article.completed ? 'Incomplete' : 'Complete'}
+              </button>
+            </li>
+          ))}
+        </ul>
+
+        <div className='buttonCompl'>
+          <button onClick={() => handleFilterChange('all')}>All</button>
+          <button onClick={() => handleFilterChange('completed')}>Completed</button>
+          <button onClick={() => handleFilterChange('incomplete')}>Incomplete</button>
+        </div>
+      </div>
     </div>
-    </div>
-  
-  
   );
 }
 
