@@ -1,4 +1,4 @@
-
+ 
  .editImg{
   width: 32px;
 }
@@ -11,7 +11,7 @@
   padding: 20px;
   display: flex;
   justify-content: center;
-  width: 350px;
+  width: 407px;
   min-height: 150px;
   height: auto;
   border-radius: 5px;
@@ -40,9 +40,10 @@ input {
   color: #0d0000;
   background-color: #f2f2f2;
   height: 42px;
-  width: 40px;
+  width: 70px;
   border: none;
   border-radius: 16px;
+  margin-left: -3px;
 }
 
 .addBut:hover {
@@ -93,4 +94,10 @@ input {
 
 .buttonCompl button:last-child {
   margin-right: 0;
+}
+.editImg{
+  width: 32px;
+}
+.img{
+  width: 32px;
 }

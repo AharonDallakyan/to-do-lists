@@ -5,12 +5,14 @@ import Input from './input';
 import DeleteButton from './DeleteButton';
 import { Article } from './Article';
 import Edit from './EditText';
+import DatePicker from './DatePicker';
 
 function App() {
   const [inputValue, setInputValue] = useState('');
   const [articles, setArticles] = useState([]);
   const [filter, setFilter] = useState('all');
-
+  const [dueDate, setDueDate] = useState(null);
+  
   const handleAddData = () => {
     if (inputValue === '') {
       return false;
@@ -21,12 +23,15 @@ function App() {
           isCompleted: true,
           id: Math.floor(Math.random() * 100),
           title: inputValue,
+          dueDate: dueDate
         },
         ...prevState,
       ];
     });
     setInputValue('');
+    setDueDate(null)
   };
+ 
 
   const handleDeleteData = (id) => {
     const removeItem = articles.filter((todo) => {
@@ -65,8 +70,8 @@ function App() {
   } else if (filter === 'incomplete') {
     filteredArticles = articles.filter((article) => !article.completed);
   }
-
   console.log(articles);
+  console.log(dueDate)
 
   return (
     <div className='container'>
@@ -74,8 +79,8 @@ function App() {
         <div className='inputContainer'>
           <Input onChange={setInputValue} value={inputValue} />
           <AddButton onClick={handleAddData} />
+          <DatePicker className='date' selected={dueDate} onChange={date => setDueDate(date)} />
         </div>
-
         <ul>
           {filteredArticles.map((article) => (
             <li
@@ -95,6 +100,7 @@ function App() {
                   />
                 </div>
               </div>
+              <div>Due Date: {article.dueDate ? article.dueDate.toLocaleDateString() : 'No due date'}</div>
               <button onClick={() => toggleComplete(article.id)}>
                 {article.completed ? 'Incomplete' : 'Complete'}
               </button>
